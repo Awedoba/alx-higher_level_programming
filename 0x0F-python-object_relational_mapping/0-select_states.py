@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+# Usage: ./0-select_states.py <mysql username> \
+#                             <mysql password> \
+#                             <database name>
 """
 This script lists all states from the
 database `hbtn_0e_0_usa`.
@@ -12,14 +15,11 @@ if __name__ == '__main__':
     Access to the database and get the states
     from the database.
     """
-    db_connect = MySQLdb.connect(
+    db = MySQLdb.connect(
         host="localhost", user=argv[1], port=3306, passwd=argv[2], db=argv[3])
 
-    db_cursor = db_connect.cursor()
+    dbc = db.cursor()
 
-    db_cursor.execute("SELECT * FROM states")
+    dbc.execute("SELECT * FROM `states`")
 
-    rows_selected = db_cursor.fetchall()
-
-    for row in rows_selected:
-        print(row)
+    [print(state) for state in dbc.fetchall()]
